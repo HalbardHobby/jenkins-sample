@@ -1,0 +1,34 @@
+pipeline {
+    agent { label 'master'}
+    environment {
+        REGISTRY = "halbard/bookie-flask"
+        DOCKERHUB_CREDENTIALS = 'halbard-dockerhub'
+    }
+    stages {
+        stage('build') {
+            steps {
+                // Get some code from a GitHub repository
+                git 'https://github.com/HalbardHobby/bookie-flask.git'
+                script {
+                	def dockerImage = docker.build REGISTRY
+                }
+            }
+        }
+        stage('push to hub') {
+            steps {
+                script {
+                    docker.withRegistry( '', DOCKERHUB_CREDENTIALS ) { 
+                        sh 'docker push $REGISTRY:latest'
+                    }
+                }
+            }
+        }
+        stage('clean up') {
+            steps {
+                script {
+                    sh 'docker rmi $REGISTRY'
+                }
+            }
+        }
+    }
+}
