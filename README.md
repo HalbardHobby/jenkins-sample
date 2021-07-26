@@ -24,3 +24,24 @@ docker run --rm -d -p 8080:8080 -p 50000:50000 \
            -v /var/run/docker.sock:/var/run/docker.sock \
            -v $(which docker):/usr/bin/docker jenkins/jenkins
 ```
+
+---
+
+## Job Configuration
+
+Once Jenkins is up and running, configuring a project is fairly straightforward. Simply configure your pipeline and write your script.
+
+![Job Configuration 1](media/job_config_1.png)
+![Job Configuration 2](media/job_config_2.png)
+
+With thsese simple configurations you only need to click "Build Now" and your image will be on route to Docker Hub.
+
+![successful builds](media/successful_builds.png)
+
+You can checkout [the jenkinsfile](text/jenkinsfile) and the [logs](text/logs.txt). Finally you can check the image built for [the project used](https://github.com/HalbardHobby/bookie-flask) on [DockerHub](https://hub.docker.com/repository/docker/halbard/bookie-flask)
+
+---
+
+## Author
+
+**Alejandro Espinosa**
